@@ -112,15 +112,15 @@ Here is explanation for them:
 | flipbook_texture   | string  | Path to texture.                                                         |
 | atlas_tile         | string  | The shortname defined in the terrain_textures.json.                      |
 | atlas_index        | integer | The index of the texture array inside the definition of that shortname.* |
-| atlas_tile_variant | integer | Seems to do same as `atlas_index`                                        |
+| atlas_tile_variant | integer | Variates a Tile value from a Block with Variated Textures.                                      |
 | ticks_per_frame    | integer | How fast frames should be changed. 20 ticks = 1 second.                  |
 | frames             | list    | List with numbers of frames which defines their order.                   |
 | replicate          | integer | Sets the size of pixels. Default: 1.**                                   |
 | blend_frames       | boolean | Defines should frames transition be smooth or not. Default: true.        |
 
-\* `atlas_index` and `atlas_tile_variant`
+\* `atlas_index`
 
-These components are for defining texture variant (if you have it).
+This type of component is used for defining a texture tile variant on blocks with Index Arrays like Dirt, Wood, Leaves and more.
 
 Example:
 
@@ -135,7 +135,29 @@ Example:
 }
 ```
 
-Then you need can add `"atlas_index": 1` or `"atlas_tile_variant": 1` to have animated texture for the second path.
+Then you need can add `"atlas_index": 1` to have animated texture for the second path.
+
+\* `atlas_tile_variant`
+
+Tile Variant almost does the same as Tile Index. But this component will let you define the value of the Texture Variation from a block with Texture Variation arrays.
+
+Example:
+
+<CodeHeader>RP/textures/terrain_texture.json#texture_data</CodeHeader>
+
+```json
+"dirt": {
+    "textures": {
+           "variations": [
+		   { "path": "textures/blocks/dirt_variated_and_should_be_animated" },
+		   { "path": "textures/blocks/dirt0" },
+	           { "path": "textures/blocks/dirt1" }
+				]
+			}
+		}
+```
+
+And since path number 1 has the variated texture hence we'll put `"atlas_tile_variant": 0` to have animated texture for that specific path.
 
 \*\* `replicate`
 
